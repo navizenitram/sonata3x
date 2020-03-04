@@ -26,15 +26,16 @@ final class BillsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('Tab 1')
-                    ->with('Datos factura', ['class' => 'col-md-6'])
-                   ->add('bill_number')
-                   ->add('total')
+                   ->with('Datos factura', ['class' => 'col-md-6'])
+                       ->add('bill_number')
+                       ->add('total')
+                       ->end()
                    ->end()
-            ->end()
-                    ->tab('Tab 2')
-                   ->with('Datos cliente', ['class' => 'col-md-6'])
-                   ->add('customer_id')
-                   ->end()->end();
+                   ->tab('Tab 2')
+                       ->with('Datos cliente', ['class' => 'col-md-6'])
+                       ->add('customer_id')
+                       ->end()
+                   ->end();
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
