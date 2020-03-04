@@ -18,7 +18,7 @@ use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
  * @Sonata\AdminOptions(
  *     label="Facturas",
  *     group="Facturacion",
- *     icon="<i class='fa fa-user'></i>",
+ *     icon="<i class='fa fa-bullseye'></i>",
  * )
  */
 final class BillsAdmin extends AbstractAdmin
