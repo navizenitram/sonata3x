@@ -1,3 +1,17 @@
+Ejemplo de Symfony 4 con Sonata 3
+<p>No está siendo fácil, la documentación es lamentable</p>
+<h3>Pasos de la instalación que están funcionando: (intento de roadmap al éxito)</h3>
+<ul>
+    <li>Instalación de Symfony 4.4: </li>
+    <li>Instalación de Sonata</li>
+    <li>Instalación de SonataDoctrineORM</li>
+    <li>Crear entidad de prueba</li>
+    <li>Crear primera clase Admin de prueba (CustomerAdmin) que hereda de AbstractAdmin</li>
+    <li>Instalo Auto Configuring Admin Classes: composer require kunicmarko/sonata-auto-configure-bundle</li>
+    <li>Creo el fichero config/packages/sonata_auto_configure.yaml y hago copy&paste de la docu:https://symfony.com/doc/master/bundles/SonataAdminBundle/cookbook/recipe_auto_configure_admin_classes.html</li>
+    <li>Siguiendo la docu del SonataAutoConfigureBundle con las anotaciones puedo empezar a configurar porque si intento configurarlo en el yaml de services no funciona. </li>
+</ul>
+~~~~
 https://github.com/sonata-project/SonataAdminBundle/issues/4910
 
 Run composer require sonata-project/admin-bundle:3.x@dev

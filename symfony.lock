@@ -87,6 +87,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v2.3.0"
     },
+    "kunicmarko/sonata-auto-configure-bundle": {
+        "version": "0.7.1"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
