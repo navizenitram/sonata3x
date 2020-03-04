@@ -25,9 +25,16 @@ final class BillsAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('bill_number', TextType::class);
-        $formMapper->add('customer_id', IntegerType::class);
-        $formMapper->add('total', IntegerType::class);
+        $formMapper->tab('Tab 1')
+                    ->with('Datos factura', ['class' => 'col-md-6'])
+                   ->add('bill_number')
+                   ->add('total')
+                   ->end()
+            ->end()
+                    ->tab('Tab 2')
+                   ->with('Datos cliente', ['class' => 'col-md-6'])
+                   ->add('customer_id')
+                   ->end()->end();
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
@@ -39,7 +46,19 @@ final class BillsAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
+        //https://symfony.com/doc/3.x/bundles/SonataAdminBundle/reference/field_types.html
         $listMapper->addIdentifier('bill_number');
-        $listMapper->addIdentifier('customer_id'); //TODO: Mostar el Nombre del Cliente
+        $listMapper->addIdentifier('customer_id', null, ['label' => 'Cliente']); //TODO: Mostar el Nombre del Cliente
+        $listMapper->addIdentifier('total', 'currency', ['currency' => 'EUR']);
+        $listMapper->add('_action',
+            null,
+            [
+                'label'   => 'Acciones molonas',
+                'actions' => [
+                    'show'   => [],
+                    'edit'   => [],
+                    'delete' => [],
+                ],
+            ]);
     }
 }
