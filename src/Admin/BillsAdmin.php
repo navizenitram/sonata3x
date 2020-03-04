@@ -17,7 +17,7 @@ use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
 /**
  * @Sonata\AdminOptions(
  *     label="Facturas",
- *     group="Facturacion",
+ *     group="Facturación",
  *     icon="<i class='fa fa-bullseye'></i>",
  * )
  */
