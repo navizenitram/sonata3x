@@ -39,6 +39,7 @@ final class BillsAdmin extends AbstractAdmin
                             'edit'=>'inline',
                             'inline'=>'table',
                         ])*/
+                        //TODO: Estudiar esto como funciona el OneToMany. De momento añadido '...,cascade={"persist"}'
                         ->add('BillRows', \Sonata\CoreBundle\Form\Type\CollectionType::class,
                             array('by_reference' => false),
                             array('edit' => 'inline',
