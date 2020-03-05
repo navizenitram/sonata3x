@@ -30,7 +30,7 @@ class Bills
     private $customer;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\BillRows", mappedBy="bills", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillRows", mappedBy="bills", orphanRemoval=true, cascade={"persist"})
      */
     private $BillRows;
 

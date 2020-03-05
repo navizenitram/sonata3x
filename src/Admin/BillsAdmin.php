@@ -35,7 +35,16 @@ final class BillsAdmin extends AbstractAdmin
                    ->end()
                    ->tab('Rows')
                         ->with('Lineas de factura')
-                        ->add('BillRows')
+                        /*->add('BillRows', 'sonata_type_collection', [
+                            'edit'=>'inline',
+                            'inline'=>'table',
+                        ])*/
+                        ->add('BillRows', \Sonata\CoreBundle\Form\Type\CollectionType::class,
+                            array('by_reference' => false),
+                            array('edit' => 'inline',
+                                  'inline' => 'table'
+                            )
+                        )
                         ->end()
                     ->end();
     }
