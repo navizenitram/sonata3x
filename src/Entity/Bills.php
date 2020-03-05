@@ -22,9 +22,10 @@ class Bills
     private $bill_number;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Customer")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $customer_id;
+    private $customer;
 
     /**
      * @ORM\Column(type="decimal", precision=5, scale=2)
@@ -48,14 +49,14 @@ class Bills
         return $this;
     }
 
-    public function getCustomerId(): ?int
+    public function getCustomer(): ?Customer
     {
-        return $this->customer_id;
+        return $this->customer;
     }
 
-    public function setCustomerId(int $customer_id): self
+    public function setCustomer(?Customer $customer): self
     {
-        $this->customer_id = $customer_id;
+        $this->customer = $customer;
 
         return $this;
     }

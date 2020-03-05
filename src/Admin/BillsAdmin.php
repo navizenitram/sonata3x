@@ -10,8 +10,6 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
 
 /**
@@ -33,7 +31,7 @@ final class BillsAdmin extends AbstractAdmin
                    ->end()
                    ->tab('Tab 2')
                        ->with('Datos cliente', ['class' => 'col-md-6'])
-                       ->add('customer_id')
+                       ->add('customer')
                        ->end()
                    ->end();
     }
@@ -41,7 +39,7 @@ final class BillsAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper->add('bill_number');
-        $datagridMapper->add('customer_id'); //TODO: Mostar el Nombre del Cliente
+        $datagridMapper->add('customer');
         $datagridMapper->add('total');
     }
 
@@ -49,7 +47,7 @@ final class BillsAdmin extends AbstractAdmin
     {
         //https://symfony.com/doc/3.x/bundles/SonataAdminBundle/reference/field_types.html
         $listMapper->addIdentifier('bill_number');
-        $listMapper->addIdentifier('customer_id', null, ['label' => 'Cliente']); //TODO: Mostar el Nombre del Cliente
+        $listMapper->addIdentifier('customer', null, ['label' => 'Cliente']);
         $listMapper->addIdentifier('total', 'currency', ['currency' => 'EUR']);
         $listMapper->add('_action',
             null,
