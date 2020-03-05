@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,9 +30,14 @@ class Bills
     private $customer;
 
     /**
-     * @ORM\Column(type="decimal", precision=5, scale=2)
+     * @ORM\OneToMany(targetEntity="App\Entity\BillRows", mappedBy="bills", orphanRemoval=true)
      */
-    private $total;
+    private $BillRows;
+
+    public function __construct()
+    {
+        $this->BillRows = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,14 +68,33 @@ class Bills
         return $this;
     }
 
-    public function getTotal(): ?string
+    /**
+     * @return Collection|BillRows[]
+     */
+    public function getBillRows(): Collection
     {
-        return $this->total;
+        return $this->BillRows;
     }
 
-    public function setTotal(string $total): self
+    public function addBillRow(BillRows $billRow): self
     {
-        $this->total = $total;
+        if (!$this->BillRows->contains($billRow)) {
+            $this->BillRows[] = $billRow;
+            $billRow->setBills($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillRow(BillRows $billRow): self
+    {
+        if ($this->BillRows->contains($billRow)) {
+            $this->BillRows->removeElement($billRow);
+            // set the owning side to null (unless already changed)
+            if ($billRow->getBills() === $this) {
+                $billRow->setBills(null);
+            }
+        }
 
         return $this;
     }
