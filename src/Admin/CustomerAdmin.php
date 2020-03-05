@@ -24,8 +24,9 @@ final class CustomerAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper->add('Name', TextType::class);
-        $formMapper->add('uuid', TextType::class);
+        $formMapper->add('Name');
+        $formMapper->add('uuid');
+        $formMapper->add('country');
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
