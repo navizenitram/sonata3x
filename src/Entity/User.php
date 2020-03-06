@@ -14,7 +14,7 @@ class User implements UserInterface, \Serializable
 {
     //const DEFAULT_ROLE = 'ROLE_USER';
     const DEFAULT_ROLE = 'ROLE_ADMIN';
-    const ADMIN_ROLE = 'ROLE_SUPER_ADMIN';
+    const ADMIN_ROLE = 'ROLE_ADMIN';
 
     /**
      * @ORM\Id
