@@ -26,9 +26,18 @@ final class CustomerAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $formMapper->add('id',null,['disabled' => true]);
         $formMapper->add('Name');
         $formMapper->add('uuid');
-        $formMapper->add('country');
+        $formMapper->add('country',
+            \Sonata\AdminBundle\Form\Type\ModelListType::class,
+            ['btn_add'  => false,
+             'btn_edit' => false,
+             'btn_delete'=>false,
+            ]);
+        //$formMapper->add('country');
+        //$formMapper->add('country', \Sonata\AdminBundle\Form\Type\ModelAutocompleteType::class, ['property' =>
+        // 'name']);
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)

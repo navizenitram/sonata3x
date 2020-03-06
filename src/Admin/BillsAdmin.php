@@ -31,6 +31,7 @@ final class BillsAdmin extends AbstractAdmin
                    ->end()
                    ->tab('Cliente')
                        ->with('Datos cliente', ['class' => 'col-md-6'])
+                        //https://symfony.com/doc/master/bundles/SonataAdminBundle/reference/form_types.html
                         ->add('customer',
                             \Sonata\AdminBundle\Form\Type\AdminType::class,
                             [],
