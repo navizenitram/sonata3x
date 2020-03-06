@@ -14,9 +14,11 @@ use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
 
 /**
  * @Sonata\AdminOptions(
+ *     adminCode="service.admin.customer",
  *     label="Clientes",
  *     group="Facturación",
  *     icon="<i class='fa fa-bullseye'></i>",
+ *     autowireEntity=true,
  * )
  */
 

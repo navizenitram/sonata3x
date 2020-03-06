@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use KunicMarko\SonataAutoConfigureBundle\Annotation as Sonata;
+use Symfony\Component\Form\AbstractType;
 
 /**
  * @Sonata\AdminOptions(
@@ -24,30 +25,32 @@ final class BillsAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper->tab('Factura')
-                   ->with('Datos factura', ['class' => 'col-md-6'])
-                       ->add('bill_number')
+                       ->with('Datos factura', ['class' => 'col-md-6'])
+                        ->add('bill_number')
                        ->end()
                    ->end()
                    ->tab('Cliente')
                        ->with('Datos cliente', ['class' => 'col-md-6'])
-                       ->add('customer')
+                        ->add('customer',
+                            \Sonata\AdminBundle\Form\Type\AdminType::class,
+                            [],
+                            ['admin_code' => 'service.admin.customer'])
                        ->end()
                    ->end()
                    ->tab('Rows')
-                        ->with('Lineas de factura')
-                        /*->add('BillRows', 'sonata_type_collection', [
-                            'edit'=>'inline',
-                            'inline'=>'table',
-                        ])*/
-                        //TODO: Estudiar esto como funciona el OneToMany. De momento añadido '...,cascade={"persist"}'
-                        ->add('BillRows', \Sonata\CoreBundle\Form\Type\CollectionType::class,
-                            array('by_reference' => false),
-                            array('edit' => 'inline',
-                                  'inline' => 'table'
-                            )
-                        )
-                        ->end()
-                    ->end();
+                       ->with('Lineas de factura')
+                       ->add('BillRows',
+                           \Sonata\CoreBundle\Form\Type\CollectionType::class,
+                           [
+                               'by_reference' => false
+                           ],
+                           [
+                               'edit'   => 'inline',
+                               'inline' => 'table',
+                           ])
+                       ->end()
+                   ->end();
+        //TODO: Estudiar esto como funciona el OneToMany. De momento añadido '...,cascade={"persist"}'
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
