@@ -36,6 +36,9 @@ final class BillsAdmin extends AbstractAdmin
                             \Sonata\AdminBundle\Form\Type\AdminType::class,
                             [],
                             ['admin_code' => 'service.admin.customer'])
+                        /*->add('customer',
+                            null,
+                            ['disabled' => true])*/
                        ->end()
                    ->end()
                    ->tab('Rows')
