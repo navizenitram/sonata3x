@@ -3,106 +3,216 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Table(name="user")
  */
-class User
+class User implements UserInterface, \Serializable
 {
+    //const DEFAULT_ROLE = 'ROLE_USER';
+    const DEFAULT_ROLE = 'ROLE_ADMIN';
+    const ADMIN_ROLE = 'ROLE_SUPER_ADMIN';
+
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", unique=true)
      */
-    private $username;
+    private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", nullable=true)
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * A non-persisted field that's used to create the encoded password.
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Your password must be at least {{ limit }} characters long.",
+     * )
+     * @var string
      */
-    private $role;
+    private $plainPassword;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(name="roles", type="json_array")
      */
-    private $name;
+    private $roles = [self::DEFAULT_ROLE];
 
     /**
-     * @ORM\Column(type="boolean")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_login", type="datetime", nullable=true)
      */
-    private $active;
+    private $lastLogin;
 
-    public function getId(): ?int
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_suspended", type="boolean")
+     */
+    private $isSuspended = false;
+
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getRoles()
     {
-        return $this->username;
+        return $this->roles;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function getSalt()
+    {
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
+        $this->plainPassword = null;
+
+        return $this;
+    }
+
+    public function setPlainPassword(string $plainPassword = null)
+    {
+        $this->plainPassword = $plainPassword;
+
+        $this->password = null;
+
+
+        return $this;
+    }
+
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getPlainPassword()
     {
-        return $this->role;
+        return $this->plainPassword;
     }
 
-    public function setRole(string $role): self
+    public function setRoles(array $roles)
     {
-        $this->role = $role;
+        $this->roles = [];
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
 
         return $this;
     }
 
-    public function getName(): ?string
+    public function addRole($role)
     {
-        return $this->name;
-    }
+        if (!$role) {
+            return $this;
+        }
 
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
+        $role = strtoupper($role);
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
 
         return $this;
     }
 
-    public function getActive(): ?bool
+    public function removeRole($role)
     {
-        return $this->active;
-    }
-
-    public function setActive(bool $active): self
-    {
-        $this->active = $active;
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
 
         return $this;
+    }
+
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->roles, true);
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(\DateTime $lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function isSuspended()
+    {
+        return $this->isSuspended;
+    }
+
+    public function setIsSuspended(bool $isSuspended)
+    {
+        $this->isSuspended = $isSuspended;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isSuspended
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            $this->isSuspended
+            ) = unserialize($serialized);
     }
 }
