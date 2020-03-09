@@ -1,0 +1,14 @@
+# App/config/packages/fos.yaml
+
+fos_user:
+  db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+  firewall_name: main
+  user_class: App\Entity\Usuario
+  from_email:
+    address: "ivan.martinezca@gmail.com"
+    sender_name: "Iván Martínez"
+
+framework:
+    templating:
+      engines: ['twig']
+    translator: ~

@@ -9,7 +9,8 @@ Ejemplo de Symfony 4 con Sonata 3
     <li>Crear primera clase Admin de prueba (CustomerAdmin) que hereda de AbstractAdmin</li>
     <li>Instalo Auto Configuring Admin Classes: composer require kunicmarko/sonata-auto-configure-bundle</li>
     <li>Creo el fichero config/packages/sonata_auto_configure.yaml y hago copy&paste de la docu:https://symfony.com/doc/master/bundles/SonataAdminBundle/cookbook/recipe_auto_configure_admin_classes.html</li>
-    <li>Siguiendo la docu del SonataAutoConfigureBundle con las anotaciones puedo empezar a configurar porque si intento configurarlo en el yaml de services no funciona. </li>
+    <li>FOSUserbundle: <ul><li>https://www.usualmente.com/2018/05/17/fosuserbundle-en-symfony4/</li> <li>https://ourcodeworld.com/articles/read/267/how-to-add-a-role-to-an-user-with-fosuserbundle-in-symfony-3</li></ul>
+    </li>
 </ul>
 ~~~~
 https://github.com/sonata-project/SonataAdminBundle/issues/4910
